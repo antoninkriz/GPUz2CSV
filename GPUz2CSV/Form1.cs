@@ -51,6 +51,7 @@ namespace GPUz2CSV
                         string newfilepath = savedir + @"\" + Path.GetFileNameWithoutExtension(file) + ".csv";
 
                         File.CreateText(newfilepath).Close();
+
                         File.WriteAllText(newfilepath, content, Encoding.UTF8);
                     }
                     catch (SecurityException ex)
@@ -70,6 +71,23 @@ namespace GPUz2CSV
             }
             checkBox1.Enabled = true;
             button1.Enabled = true;
+        }
+
+        private string dirdialog()
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    return fbd.SelectedPath;
+                }
+                else {
+                    dirdialog();
+                }
+                return fbd.SelectedPath;
+            }   
         }
     }
 }
