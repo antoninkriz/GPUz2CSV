@@ -27,6 +27,7 @@ namespace GPUz2CSV
             button1.Enabled = false;
             checkBox1.Enabled = false;
             DialogResult dr = openFileDialog1.ShowDialog();
+            string savedir = dirdialog();
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 foreach (String file in openFileDialog1.FileNames)
@@ -47,7 +48,7 @@ namespace GPUz2CSV
                         {
                             content = File.ReadAllText(file, Encoding.UTF8).Replace(".", ",");
                         }
-                        string newfilepath = Path.GetDirectoryName(file) + @"\" + Path.GetFileNameWithoutExtension(file) + ".csv";
+                        string newfilepath = savedir + @"\" + Path.GetFileNameWithoutExtension(file) + ".csv";
 
                         File.CreateText(newfilepath).Close();
                         File.WriteAllText(newfilepath, content, Encoding.UTF8);
